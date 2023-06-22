@@ -6,6 +6,7 @@ export const GET_USERS = gql`
       data {
         id
         name
+        username
         email
       }
     }
@@ -13,7 +14,7 @@ export const GET_USERS = gql`
 `;
 
 export const GET_USER = gql`
-  query ($id: ID!) {
+  query user($id: ID!) {
     user(id: $id) {
       id
       name

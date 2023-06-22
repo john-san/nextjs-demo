@@ -4,7 +4,8 @@ import { getUserById } from "actions/userActions";
 import { AiOutlineUser } from "react-icons/ai";
 import Spinner from "pages/users/components/Spinner";
 interface UserProps {
-  id: number;
+  // api uses string ids
+  id: string;
 }
 
 export default function User({ id }: UserProps) {
@@ -32,12 +33,6 @@ export default function User({ id }: UserProps) {
           <p className="text-sm font-medium text-gray-900">{user.name}</p>
           <p className="text-sm text-gray-500">{user.email}</p>
           <p className="text-sm text-gray-500">{user.phone}</p>
-          <p className="text-sm text-gray-500">{user.website}</p>
-          <p className="text-sm text-gray-500">{user.address.street}</p>
-          <p className="text-sm text-gray-500">{user.address.suite}</p>
-          <p className="text-sm text-gray-500">{user.address.city}</p>
-          <p className="text-sm text-gray-500">{user.address.zipcode}</p>
-          <p className="text-sm text-gray-500">{user.company.name}</p>
         </div>
       </div>
     );

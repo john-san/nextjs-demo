@@ -15,27 +15,21 @@ import {
   deleteUserFailure,
   updateUserFailure,
 } from "../actions/userActions";
-import {
-  getUsers,
-  getUserById,
-  createUser,
-  deleteUser,
-  updateUser,
-} from "./userApi";
+import { getUsers, createUser, deleteUser, updateUser } from "./userApi";
 // import User from "../types/User";
 import { User } from "../gql/__generated__/graphql";
 
-function* getUserByIdSaga(action: any) {
-  try {
-    yield put(resetError());
-    yield put(getUserByIdLoading()); // dispatches loading state to the reducer
+// function* getUserByIdSaga(action: any) {
+//   try {
+//     yield put(resetError());
+//     yield put(getUserByIdLoading()); // dispatches loading state to the reducer
 
-    const fetchedUser = yield call(getUserById, action.payload);
-    yield put(getUserByIdSuccess(fetchedUser)); // dispatches user to the reducer
-  } catch (error) {
-    yield put(getUserByIdFailure(error.message));
-  }
-}
+//     const fetchedUser = yield call(getUserById, action.payload);
+//     yield put(getUserByIdSuccess(fetchedUser)); // dispatches user to the reducer
+//   } catch (error) {
+//     yield put(getUserByIdFailure(error.message));
+//   }
+// }
 
 // saga worker
 function* getUsersSaga() {
@@ -49,6 +43,10 @@ function* getUsersSaga() {
     if (initialFetch == false) {
       const fetchedUsers: User[] = yield call(getUsers);
       yield put(getUsersSuccess(fetchedUsers)); // dispatches users to the reducer
+    } else {
+      // fetch existing users from the store
+      const existingUsers: User[] = yield select((state) => state.user.users);
+      yield put(getUsersSuccess(existingUsers)); // dispatches users to the reducer
     }
   } catch (error) {
     yield put(getUsersFailure(error));
@@ -84,7 +82,7 @@ function* updateUserSaga(action: any) {
 // saga listener
 export function* userSagas() {
   yield takeLatest(ActionTypes.GET_USERS, getUsersSaga);
-  yield takeLatest(ActionTypes.GET_USER_BY_ID, getUserByIdSaga);
+  // yield takeLatest(ActionTypes.GET_USER_BY_ID, getUserByIdSaga);
   yield takeLatest(ActionTypes.CREATE_USER, createUserSaga);
   yield takeLatest(ActionTypes.DELETE_USER, deleteUserSaga);
   yield takeLatest(ActionTypes.UPDATE_USER, updateUserSaga);

@@ -18,7 +18,7 @@ async function getUsers(): Promise<User[]> {
     });
 
     // console.log(response.data.users.data);
-    const users: User[] = response.data.users.data;
+    let users: User[] = response.data.users.data;
     return users;
   } catch (error: any) {
     throw new Error(error?.message || "Something went wrong");
@@ -26,20 +26,20 @@ async function getUsers(): Promise<User[]> {
 }
 
 // get user by id
-async function getUserById(payload: any): Promise<User> {
-  const response = await client.query({
-    query: GET_USER,
-    variables: { id: payload },
-  });
+// async function getUserById(payload: any): Promise<User> {
+//   const response = await client.query({
+//     query: GET_USER,
+//     variables: { id: payload },
+//   });
 
-  console.log(response.data.user);
-  if (response.data.user.id === null) {
-    throw new Error("User not found");
-  }
+//   console.log(response.data.user);
+//   if (response.data.user.id === null) {
+//     throw new Error("User not found");
+//   }
 
-  const user: User = response.data.user;
-  return user;
-}
+//   const user: User = response.data.user;
+//   return user;
+// }
 
 // create user
 async function createUser(payload: any): Promise<User> {
@@ -77,4 +77,4 @@ async function deleteUser(payload: any): Promise<Boolean> {
   }
 }
 
-export { getUsers, getUserById, createUser, updateUser, deleteUser };
+export { getUsers, createUser, updateUser, deleteUser };

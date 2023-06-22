@@ -5,11 +5,12 @@ import Link from "next/link";
 
 function index() {
   const router = useRouter();
+  // string type ids
   const { userId } = router.query;
   return (
     <div>
       <h1 className="text-4xl">User</h1>
-      <User id={parseInt(userId as string)} />
+      <User id={userId as string} />
       <div className="mt-4">
         <Link href="/users">
           <a className="text-blue-500 hover:text-blue-700">Back to Users</a>

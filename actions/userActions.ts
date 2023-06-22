@@ -28,7 +28,8 @@ export const resetError = () => ({
   type: ActionTypes.RESET_ERROR,
 });
 
-export const getUserById = (id: number) => ({
+// string ids
+export const getUserById = (id: string) => ({
   type: ActionTypes.GET_USER_BY_ID,
   payload: id,
 });

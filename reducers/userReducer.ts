@@ -1,5 +1,6 @@
-import User from "../types/User";
+// import User from "../types/User";
 import { ActionTypes } from "../actions/userActions";
+import { User } from "../gql/__generated__/graphql";
 
 export interface UserState {
   users: User[];
@@ -27,13 +28,13 @@ export const userReducer = (state = initialState, action: any) => {
       };
 
     // if using local state
-    // case ActionTypes.GET_USER_BY_ID:
-    //   return {
-    //     ...state,
-    //     currentUser: state.users.find(
-    //       (user: User) => user.id === action.payload
-    //     ),
-    //   };
+    case ActionTypes.GET_USER_BY_ID:
+      return {
+        ...state,
+        currentUser: state.users.find(
+          (user: User) => user.id === action.payload
+        ),
+      };
 
     case ActionTypes.GET_USER_BY_ID_SUCCESS:
       return {
